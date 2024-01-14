@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     element: <MainPage />,
   },
   {
-    path: '/search-list/:titles',
+    path: '/search-list/:user/:titles',
     element: <SearchList />,
   },
   {
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     element: <HomePage />,
   },
   {
-    path: '/about-us',
+    path: '/about-us/:user',
     element: <AboutPage />,
   },
   {
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
     element: <AnimePage />,
   },
   {
-    path: '/top100',
+    path: '/top100/:user',
     element: <TopAnimePage />,
   },
 ]);

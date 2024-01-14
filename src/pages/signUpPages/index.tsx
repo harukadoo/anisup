@@ -18,6 +18,7 @@ export const SignUpPage = () => {
       .then(result => {
         if (result.data.exists) {
           setUserExists(true);
+          
         } else {
           if (name === '' || email === '' || password === '') {
             return

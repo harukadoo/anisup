@@ -7,62 +7,61 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export const SearchList = () => {
-    const { search } = useParams<string>();
-    const [searchValue, setSearchValue] = useState<any>([]);
-    const [formattedSearch, setFormattedSearch] = useState<string | undefined>(undefined);
+  const { titles, user } = useParams<string>();
+  const [searchValue, setSearchValue] = useState<any>([]);
 
-    useEffect(() => {
-      setFormattedSearch(search?.replace('%20', ' '));
-      console.log(formattedSearch)
-    }, [search]);
+  useEffect(() => {
+    if (titles !== undefined) {
+      const decodedSearch = decodeURIComponent(titles);
 
-    useEffect(() => {
-        const getSearchValue = async () => {
-          try {
-            if (formattedSearch) {
-              const response = await axios.get(`https://api.jikan.moe/v4/anime?q=${formattedSearch}`);
-              setSearchValue(response.data.data);
-            }
+      const getSearchValue = async () => {
+        try {
+          const response = await axios.get(`https://api.jikan.moe/v4/anime?q=${decodedSearch}`);
+          setSearchValue(response.data.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
 
-          } catch (error) {
-            console.log(error);
-          }
-        };
-    
-        getSearchValue();
-      }, [formattedSearch]);
+      getSearchValue();
+    }
+  }, [titles]);
 
+  useEffect(() => {
+    console.log(searchValue);
+  }, [searchValue]);
 
-    useEffect(() => {
-        console.log(searchValue);
+  return (
+    <div className="search-list-container">
+      <div className="search-list-inner__container">
+        <Header userId={user} />
 
-    }, [searchValue])
-    return (
-        <div className="container">
-            <div className="inner__container">
-                <Header />
+        <div className="search-main">
+          <div className="search-main__container">
+            <div className="search-anime-list">
+              <div className="search-anime-list__container">
 
-                <div className="search-main">
-                    <div className="search-main__container">
-                        <div className="search-anime-list">
-                            <div className="search-anime-list__container">
+                {searchValue.map((anime: any, index: number) => (
+                  <SearchAnime
+                    key={index}
+                    id={anime.mal_id}
+                    title={anime.title_english}
+                    score={anime.score}
+                    image={anime.images.jpg.large_image_url}
+                    userId={user}
 
-                                <SearchAnime />
-                                <SearchAnime />
-                                <SearchAnime />
-                                <SearchAnime />
-                                <SearchAnime />
-                                <SearchAnime />
+                  />
+                )).sort((a: any, b: any) => b.props.score - a.props.score)}
 
-                            </div>
-                        </div>
-
-                        <div className="search-main__caption">this is all we have</div>
-                    </div>
-                </div>
-
-                <Footer />
+              </div>
             </div>
+
+            <div className="search-main__caption">this is all we have</div>
+          </div>
         </div>
-    )
+
+        <Footer />
+      </div>
+    </div>
+  )
 }

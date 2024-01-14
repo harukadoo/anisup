@@ -1,12 +1,15 @@
 import '../aboutPage/style5.css'
 import { Header } from '../pgcomponents/Header';
 import { Footer } from '../pgcomponents/Footer';
+import { useParams } from "react-router-dom";
 
 export const AboutPage = () => {
+    const { user } = useParams<string>();
+
     return (
         <div className="container">
             <div className="inner__container">
-                <Header />
+                <Header userId={user}/>
 
                 <main className="about-main">
                     <div className="about-main__container">

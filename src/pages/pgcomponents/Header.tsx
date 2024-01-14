@@ -44,9 +44,9 @@ export const Header = ({ userId, inputValue }: any) => {
           <div className="header-content__container">
             <div className="header-menu">
               <div className="header-menu__container">
-                <Link to={'/about-us'}>about us</Link>
+                <Link to={`/about-us/${userId}`}>about us</Link>
                 <Link to={`/main/${userId}`}>catalog</Link>
-                <Link to={'/top100'}>top 100</Link>
+                <Link to={`/top100/${userId}`}>top 100</Link>
               </div>
             </div>
 

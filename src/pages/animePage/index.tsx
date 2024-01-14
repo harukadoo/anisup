@@ -8,7 +8,7 @@ import axios from "axios";
 
 export const AnimePage = () => {
     const [animeData, setAnimeData] = useState<any[]>([]);
-    const { user, id } = useParams();
+    const { user, id } = useParams<string>();
 
     const getAnimeData = async () => {
         try {

@@ -1,20 +1,27 @@
 import { Link } from "react-router-dom";
 
-export const SearchAnime = () => {
-    const id = 1234;
+interface SearchListProps{
+    id: number;
+    title: string;
+    score: number;
+    image: string;
+    userId: string | undefined;
+}
+
+export const SearchAnime = ({ id, title, score, image, userId}: SearchListProps) => {
     return (
         <div className="search-anime__anime">
-            <Link to={`/anime/${id}`} className="search-anime__image">
-                <div className="search-anime__img"></div>
+            <Link to={`/anime/${userId}/${id}`} className="search-anime__image">
+                <img src={image} alt="banner" className="search-anime__img"/>
 
                 <div className="search-anime__score">
                     <i className="fa-solid fa-star"></i>
-                    <span>1.0</span>
+                    <span>{score}</span>
                 </div>
 
             </Link>
 
-            <div className="search-anime__name">Name</div>
+            <div className="search-anime__name">{title}</div>
         </div>
     )
 }

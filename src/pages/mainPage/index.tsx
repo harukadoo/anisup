@@ -131,7 +131,7 @@ export const MainPage = () => {
                     />
 
                     <button type="submit" className="main-search__btn">
-                      <Link to={`/search-list/${inputValue}`}>
+                      <Link to={`/search-list/${user}/${inputValue}`}>
                         <i className="fa-solid fa-magnifying-glass"></i>
                       </Link>
                     </button>
@@ -155,7 +155,7 @@ export const MainPage = () => {
 
                     </div>
 
-                    <Link to={'/top100'} className="popular-anime__link">see more</Link>
+                    <Link to={`/top100/${user}`} className="popular-anime__link">see more</Link>
 
                   </div>
                 </div>
