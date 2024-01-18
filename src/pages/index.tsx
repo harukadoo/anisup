@@ -6,3 +6,4 @@ export * from './animePage';
 export * from './top100Page';
 export * from './searchListPage';
 export * from './homePage';
+export * from './genrePage';

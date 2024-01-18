@@ -103,7 +103,7 @@ export const MainPage = () => {
   return (
     <div className="container">
       <div className="inner__container">
-        <Header userId={user} inputValue={inputValue}/>
+        <Header  userId={user}/>
 
         <main className="main">
           <div className="main__container">
@@ -142,7 +142,7 @@ export const MainPage = () => {
                 <div className="main-content__popular-anime">
                   <div className="popular-anime__container">
                     <div className="popular-anime__anime-titles">
-                      {popularAnimeData.slice(0, 6).map((anime: any, index: number) => (
+                      {popularAnimeData.slice(0, 11).map((anime: any, index: number) => (
                         <Popular
                           key={index}
                           id={anime.id}

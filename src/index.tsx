@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { SignUpPage, SignInPage, MainPage, AboutPage, AnimePage, TopAnimePage, SearchList, HomePage } from './pages/index';
+import { SignUpPage, SignInPage, MainPage, AboutPage, AnimePage, TopAnimePage, SearchList, HomePage, GenrePage } from './pages/index';
 
 
 const router = createBrowserRouter([
@@ -36,6 +36,10 @@ const router = createBrowserRouter([
   {
     path: '/top100/:user',
     element: <TopAnimePage />,
+  },
+  {
+    path: '/genre',
+    element: <GenrePage />,
   },
 ]);
 
