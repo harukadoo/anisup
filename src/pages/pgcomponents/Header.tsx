@@ -2,7 +2,12 @@ import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import './style4.css'
 
-export const Header = ({ userId, inputValue }: any) => {
+type HeaderProps = {
+  userId: string | undefined;
+}
+
+export const Header = ({ userId }: HeaderProps) => {
+  const [inputValue, setInputValue] = useState<string>('');
   const [isSearchVisible, setSearchVisible] = useState<boolean>(false);
 
   const toggleSearch = () => {
@@ -63,10 +68,15 @@ export const Header = ({ userId, inputValue }: any) => {
                       <i className="fa-solid fa-xmark"></i>
                     </button>
 
-                    <input type="text" className="header-search__input" />
+                    <input
+                      type="text"
+                      className="header-search__input"
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                    />
 
                     <button type="submit" className="header-search__btn">
-                      <Link to={`/search-list/${inputValue}`}>
+                      <Link to={`/search-list/${userId}/${inputValue}`}>
                         <i className="fa-solid fa-magnifying-glass"></i>
                       </Link>
                     </button>

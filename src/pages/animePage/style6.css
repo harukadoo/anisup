@@ -37,7 +37,7 @@
 .anime-main__content{
     width: 100%;
     background-color: #151615;
-    padding: 15vh 7vw 6vh 7vw;
+    padding: 15vh 6vw 6vh 6vw;
     display: flex;
     flex-direction: column;
      gap: 8vh;
@@ -45,12 +45,12 @@
 
 .anime-info__container{
     display: flex;
-    height: calc(var(--index) * 21);
+    height: calc(var(--index) * 22);
     /* gap: 2vw; */
 }
 
 .anime-info__image{
-    width: calc(var(--index) * 20.5);
+    width: calc(var(--index) * 22);
     background-color: gray;
     position: relative;
 }
@@ -207,8 +207,27 @@
     z-index: 100;
 }
 
+.anime-main-trailer__trailer::after {
+    content: "\f04b"; /* Unicode символ для иконки play-solid, замените на необходимый */
+    font-family: "Font Awesome 5 Free"; /* Замените на ваш шрифт Font Awesome */
+    font-weight: 900; /* Зависит от конкретной иконки в вашем шрифте */
+    font-size: calc(var(--index) * 4); /* Размер иконки, настройте по вашему выбору */
+    color: #ffffff; /* Цвет иконки в обычном состоянии */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity .4s ease-out;
+    z-index: 200;
+}
+
 .anime-main-trailer__trailer:hover::before {
-    opacity: .4;
+    opacity: .3;
+}
+
+.anime-main-trailer__trailer:hover::after {
+    opacity: 1;
 }
 
 .anime-main-trailer__trailer img{
