@@ -8,7 +8,7 @@ const port = 3001
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect('mongodb://127.0.0.1:27017/anisup');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/anisup');
 
 app.post('/sign-in', (request, response) => {
     const { email, password } = request.body;
