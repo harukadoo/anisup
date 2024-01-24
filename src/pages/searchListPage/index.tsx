@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export const SearchList = () => {
-  const { titles, user } = useParams<string>();
+  const { titles, user } = useParams();
   const [searchValue, setSearchValue] = useState<any>([]);
 
   useEffect(() => {

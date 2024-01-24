@@ -38,7 +38,7 @@ const router = createBrowserRouter([
     element: <TopAnimePage />,
   },
   {
-    path: '/genre',
+    path: '/genre/:user/:genre',
     element: <GenrePage />,
   },
 ]);

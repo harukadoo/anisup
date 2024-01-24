@@ -4,7 +4,7 @@ import { Footer } from '../pgcomponents/Footer';
 import { useParams } from "react-router-dom";
 
 export const AboutPage = () => {
-    const { user } = useParams<string>();
+    const { user } = useParams();
 
     return (
         <div className="container">

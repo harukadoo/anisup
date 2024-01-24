@@ -8,7 +8,7 @@ import axios from "axios";
 
 export const AnimePage = () => {
     const [animeData, setAnimeData] = useState<any[]>([]);
-    const { user, id } = useParams<string>();
+    const { user, id } = useParams();
 
     const getAnimeData = async () => {
         try {
@@ -17,7 +17,7 @@ export const AnimePage = () => {
             const anime = response.data.data;
 
             const filteredData = {
-                title: anime.title_english,
+                title: anime.title_english || anime.title,
                 jptitle: anime.title_japanese,
                 year: anime.year,
                 genres: anime.genres.map((genre: any) => {

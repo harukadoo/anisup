@@ -4,6 +4,7 @@ import { Footer } from '../pgcomponents/Footer';
 import { Header } from '../pgcomponents/Header';
 import { Recommended } from "./components/Recommended";
 import { Popular } from "./components/Popular";
+import { GenreButton } from "./components/GenreButton";
 
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -103,7 +104,7 @@ export const MainPage = () => {
   return (
     <div className="container">
       <div className="inner__container">
-        <Header  userId={user}/>
+        <Header userId={user} />
 
         <main className="main">
           <div className="main__container">
@@ -130,7 +131,7 @@ export const MainPage = () => {
                       onChange={(e) => setInputValue(e.target.value)}
                     />
 
-                    <button type="submit" className="main-search__btn">
+                    <button className="main-search__btn">
                       <Link to={`/search-list/${user}/${inputValue}`}>
                         <i className="fa-solid fa-magnifying-glass"></i>
                       </Link>
@@ -200,18 +201,7 @@ export const MainPage = () => {
 
                         <div className="genres-options">
                           <div className="genres-options__container">
-                            <button className="options__btn">action</button>
-                            <button className="options__btn">drama</button>
-                            <button className="options__btn">fantasy</button>
-                            <button className="options__btn">psychological</button>
-                            <button className="options__btn">thriller</button>
-                            <button className="options__btn">romance</button>
-                            <button className="options__btn">adventure</button>
-                            <button className="options__btn">comedy</button>
-                            <button className="options__btn">school</button>
-                            <button className="options__btn">sports</button>
-                            <button className="options__btn">shounen</button>
-                            <button className="options__btn">music</button>
+                              <GenreButton userId={user}/>
                           </div>
                         </div>
                       </div>
