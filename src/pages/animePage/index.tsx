@@ -1,14 +1,22 @@
-import { Header } from "../pgcomponents/Header"
-import { Footer } from "../pgcomponents/Footer"
-import '../animePage/style6.css'
+import { Header } from "../pgcomponents/Header";
+import { Footer } from "../pgcomponents/Footer";
+import { RelatedAnime } from "./components/RelatedAnime";
+import '../animePage/style6.css';
 
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
 export const AnimePage = () => {
-    const [animeData, setAnimeData] = useState<any[]>([]);
     const { user, id } = useParams();
+    const [animeData, setAnimeData] = useState<any[]>([]);
+    const [animeRelations, setAnimeRelations] = useState<any[]>([]);
+
+    const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
+    const [saves, setSaves] = useState<number>(0);
+
+    const [isLiked, setIsLiked] = useState<boolean>(false);
+    const [likes, setLikes] = useState<number>(0);
 
     const getAnimeData = async () => {
         try {
@@ -43,20 +51,32 @@ export const AnimePage = () => {
         }
     }
 
+    const getAnimeRelations = async () => {
+        try {
+            const response = await axios.get(`https://api.jikan.moe/v4/anime/${id}/recommendations`);
+            setAnimeRelations( response.data.data);
+
+        } catch (error) {
+            console.error(error);
+
+        }
+    }
+
     useEffect(() => {
         getAnimeData();
-    }, []);
+        
+        getAnimeRelations();
+    }, [id]);
 
     useEffect(() => {
         console.log(animeData);
+        console.log(animeRelations);
+        
 
     }, [animeData])
 
 
-
-    const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
-    const [saves, setSaves] = useState<number>(0);
-
+    //set saves
     useEffect(() => {
         if (animeData.length > 0) {
             setSaves(animeData[0].scored_by);
@@ -73,14 +93,13 @@ export const AnimePage = () => {
     };
 
 
-    const [isLiked, setIsLiked] = useState<boolean>(false);
-    const [likes, setLikes] = useState<number>(0);
-
+    //set likes
     useEffect(() => {
         if (animeData.length > 0) {
             setLikes(animeData[0].favorites);
         }
     }, [animeData]);
+
 
     const toggleLikes = () => {
         setIsLiked(prevState => !prevState);
@@ -191,6 +210,30 @@ export const AnimePage = () => {
                                         <img src={animeData.length > 0 ? animeData[0].trailerBanner : ''} alt="treiler-preview-img" />
                                     </a>
 
+                                </div>
+                            </div>
+
+
+                            <div className="anime-main-relations">
+                                <div className="anime-main-relations__container">
+                                    <div className="anime-main-relations__title">Similar anime titles:</div>
+
+                                    <div className="relations-anime">
+                                        <div className="relations-anime__container">
+                                            <div className="relations-anime__anime">
+                                                {animeRelations.map((anime: any, index: number) => (
+                                                    <RelatedAnime 
+                                                    key={index}
+                                                    id={anime.entry.mal_id}
+                                                    title={anime.entry.title}
+                                                    image={anime.entry.images.jpg.large_image_url}
+                                                    userId={user}
+                                                    />
+                                                ))}
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 

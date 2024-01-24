@@ -141,15 +141,6 @@
     bottom: 0;
 }
 
-/* .top-anime__image:hover{
-    opacity: .7;
-    transition: all .4s ease-out;
-    -webkit-transition: all .4s ease-out;
-    -moz-transition: all .4s ease-out;
-    -ms-transition: all .4s ease-out;
-    -o-transition: all .4s ease-out;
-} */
-
 .top-anime__image::before {
     content: "";
     position: absolute;

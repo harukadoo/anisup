@@ -62,11 +62,15 @@
 
 .genre-main-content__container{
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--index) * 3);
+    padding: 0 6vw 10vh 6vw;
 }
 
 .genre-anime-list{
     width: 100%;
-    padding: 0 6vw 14vh 6vw;
+    
 }
 
 .genre-anime-list__container{
@@ -172,4 +176,30 @@
     font-weight: 600;
     font-size: calc(var(--index) * .7);
     margin-top: 6px;
+}
+
+.genre-main__btn{
+    background: none;
+    outline: none;
+    border: none;
+    font-size: calc(var(--index) * .9);
+    font-weight: 500;
+    /* opacity: .8; */
+    cursor: pointer;
+    color: #ffe1a5;
+
+    transition: all .4s ease-out;
+    -webkit-transition: all .4s ease-out;
+    -moz-transition: all .4s ease-out;
+    -ms-transition: all .4s ease-out;
+    -o-transition: all .4s ease-out;
+}
+
+.genre-main__btn:hover{
+    opacity: .7;
+    transition: all .4s ease-out;
+    -webkit-transition: all .4s ease-out;
+    -moz-transition: all .4s ease-out;
+    -ms-transition: all .4s ease-out;
+    -o-transition: all .4s ease-out;
 }

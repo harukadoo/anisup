@@ -208,11 +208,11 @@
 }
 
 .anime-main-trailer__trailer::after {
-    content: "\f04b"; /* Unicode символ для иконки play-solid, замените на необходимый */
-    font-family: "Font Awesome 5 Free"; /* Замените на ваш шрифт Font Awesome */
-    font-weight: 900; /* Зависит от конкретной иконки в вашем шрифте */
-    font-size: calc(var(--index) * 4); /* Размер иконки, настройте по вашему выбору */
-    color: #ffffff; /* Цвет иконки в обычном состоянии */
+    content: "\f04b"; 
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900; 
+    font-size: calc(var(--index) * 4); 
+    color: #ffffff; 
     position: absolute;
     top: 50%;
     left: 50%;
@@ -243,7 +243,7 @@
 
 
 .anime-main-dub__container{
-    margin-top: 8vh;
+    margin-top: 4vh;
 }
 
 .anime-main-dub__container span{
@@ -261,4 +261,134 @@
 .dub__link:hover{
     text-decoration: underline;
     opacity: .8;
+}
+
+
+
+.anime-main-relations{
+    width: 100%;
+}
+
+.anime-main-relations__container{
+    width: 100%;
+    padding: 8vh 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--index) * 1);
+}
+
+.anime-main-relations__title{
+    font-weight: 600;
+    font-size: calc(var(--index) * 1.4);
+}
+
+.relations-anime{
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.relations-anime__container{
+    width: 100%;
+}
+
+.relations-anime__anime {
+    height: 100%;
+    display: flex;
+    gap: 1.5vw;
+}
+
+.relations-anime__anime-content {
+    width: calc(var(--index) * 10);
+    flex-shrink: 0;
+    transition: all .4s ease-out;
+    -webkit-transition: all .4s ease-out;
+    -moz-transition: all .4s ease-out;
+    -ms-transition: all .4s ease-out;
+    -o-transition: all .4s ease-out;
+}
+
+.relations-anime__image{
+    display: block;
+    width: 100%;
+    height: calc(var(--index) * 13);
+    background-color: gray;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    text-decoration: none;
+    position: relative;
+
+    transition: all .4s ease-out;
+    -webkit-transition: all .4s ease-out;
+    -moz-transition: all .4s ease-out;
+    -ms-transition: all .4s ease-out;
+    -o-transition: all .4s ease-out;
+}
+
+.relations-anime__image img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.relations-anime__image::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    opacity: 0; 
+    transition: opacity .4s ease-out;
+    z-index: 100;
+}
+
+.relations-anime__image::after {
+    content: "\f04b"; 
+    font-family: "Font Awesome 5 Free"; 
+    font-weight: 900; 
+    font-size: calc(var(--index) * 2); 
+    color: #ffffff; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity .4s ease-out;
+    z-index: 200;
+}
+
+.relations-anime__image:hover::before {
+    opacity: .2;
+}
+
+.relations-anime__image:hover::after {
+    opacity: 1;
+}
+
+.relations-anime__score{
+    align-self: flex-end;
+    padding: calc(var(--index) * .18) calc(var(--index) * .28) calc(var(--index) * .18) calc(var(--index) * .4);
+    background-color: #FFC24C;
+    z-index: 2;
+}
+
+.relations-anime__score i, .relations-anime__score span{
+    color: black;
+    font-weight: 700;
+    margin-right: 4px;
+    font-size: calc(var(--index) * .7);
+
+}
+
+.relations-anime__name{
+    font-weight: 600;
+    font-size: calc(var(--index) * .7);
+    margin-top: 6px;
 }

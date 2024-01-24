@@ -35,17 +35,9 @@ export const GenrePage = () => {
         }
     }
 
-    function generateGenreList() {
-        for (let i = 0; i < 90 - genreList.length; i++) {
-            setCurrentPage((prevPage) => prevPage + 1);
-            getGenreList();
-            
-        }
-    }
-
     useEffect(() => {
-        generateGenreList()
-    }, [genreList])
+        getGenreList()
+    }, [currentPage])
 
     useEffect(() => {
         console.log(genreList);
@@ -63,7 +55,7 @@ export const GenrePage = () => {
                             <div className="genre-main-title__container">
                                 <span></span>
 
-                                <div className="genre-main-title__title">Anime-action</div>
+                                <div className="genre-main-title__title">Anime-{genre}</div>
                             </div>
                         </div>
 
@@ -83,8 +75,12 @@ export const GenrePage = () => {
                                         ))}
                                     </div>
                                 </div>
+
+                                <button className="genre-main__btn" onClick={() => setCurrentPage(prev => prev += 1)}>Show more...</button>
                             </div>
                         </div>
+
+                        
                     </div>
                 </main>
 

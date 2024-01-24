@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const genreButtons = ['action', 'drama', 'fantasy', 'psychological', 
 'thriller', 'romance', 'adventure', 'comedy', 
-'school', 'sports', 'shounen', 'music', 'supernatural', 'suspense'];
+'school', 'sports', 'music', 'supernatural', 'suspense'];
 
 export const GenreButton = ({ userId }: any) => {
 
