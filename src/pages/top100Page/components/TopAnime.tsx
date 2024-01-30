@@ -1,14 +1,7 @@
 import { Link } from "react-router-dom";
+import { IAnimeData } from "../../types";
 
-interface TopAnimeProps {
-    id: number;
-    title: string;
-    score: number;
-    image: string;
-    userId: string | undefined;
-}
-
-export const TopAnime = ({ id, title, score, image, userId }: TopAnimeProps) => {
+export const TopAnime = ({ id, title, score, image, userId }: IAnimeData) => {
     return (
         <div className="top-anime__anime">
             <Link to={`/anime/${userId}/${id}`} className="top-anime__image">

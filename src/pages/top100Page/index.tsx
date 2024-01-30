@@ -4,17 +4,37 @@ import { Footer } from '../pgcomponents/Footer';
 import { useParams } from "react-router-dom";
 import { TopAnime } from './components/TopAnime';
 import { useState, useEffect } from "react";
+import * as Interfaces from "../types";
 import axios from "axios";
 
 export const TopAnimePage = () => {
-    const { user } = useParams<string>();
+    const { user } = useParams();
+    const [topAnime, setTopAnime] = useState<Interfaces.IAnimeData[]>([]);
+    const [page, setPage] = useState<number>(1)
 
-    const [topAnime, setTopAnime] = useState<any[]>([]);
+    function addPage() {
+        if (page < 4) {
+            setPage((prevPage) => {
+                const nextPage = prevPage + 1;
+                axios.get(`https://api.jikan.moe/v4/top/anime?type=tv&movie&page=${nextPage}`)
+                    .then(response => setTopAnime(prevAnime => [...prevAnime, ...response.data.data]))
+                    .catch(error => console.error('Помилка при запиті до API:', error));
+
+                return nextPage;
+            });
+        }
+    }
 
     const getTopAnime = async () => {
-        try{
-            const response = await axios.get('https://api.jikan.moe/v4/top/anime?page=1');
-            setTopAnime(response.data.data);
+        try {
+            const response = await axios.get(`https://api.jikan.moe/v4/top/anime?type=tv&movie&page=${page}`);
+            const filteredData = response.data.data.map((anime: Interfaces.IResponseData) => ({
+                id: anime.mal_id,
+                title: anime.title_english,
+                score: anime.score,
+                image: anime.images.jpg.large_image_url,
+            }));
+            setTopAnime(filteredData);
         } catch (error) {
             console.error('Помилка при запиті до API:', error);
         }
@@ -22,17 +42,12 @@ export const TopAnimePage = () => {
 
     useEffect(() => {
         getTopAnime()
-    },[]);
-
-    useEffect(() => {
-        console.log(topAnime);
-        
-    }, [topAnime])
+    }, []);
 
     return (
         <div className="container">
             <div className="inner__container">
-                <Header userId={user}/>
+                <Header userId={user} />
 
                 <main className="top-anime-main">
                     <div className="top-anime-main__container">
@@ -49,19 +64,23 @@ export const TopAnimePage = () => {
                             <div className="top-anime-main-content__container">
                                 <div className="top-anime-top">
                                     <div className="top-anime-top__container">
-                                        {topAnime.map((anime: any, index: number) => (
-                                            <TopAnime 
-                                            key={index}
-                                            id={anime.mal_id}
-                                            title={anime.title_english}
-                                            score={anime.score}
-                                            image={anime.images.jpg.large_image_url}
-                                            userId={user}
+                                        {topAnime.map((anime: Interfaces.IAnimeData, index: number) => (
+                                            <TopAnime
+                                                key={index}
+                                                userId={user}
+                                                id={anime.id}
+                                                title={anime.title}
+                                                score={anime.score}
+                                                image={anime.image}
                                             />
                                         ))}
-                                        
+
                                     </div>
                                 </div>
+
+                                <button onClick={addPage} className="top-anime-main__btn" style={{ display: page === 4 ? 'none' : 'block' }}>
+                                    see more..
+                                </button>
                             </div>
                         </div>
                     </div>

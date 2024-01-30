@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { SignUpPage, SignInPage, MainPage, AboutPage, AnimePage, TopAnimePage, SearchList, HomePage, GenrePage } from './pages/index';
@@ -38,7 +37,7 @@ const router = createBrowserRouter([
     element: <TopAnimePage />,
   },
   {
-    path: '/genre',
+    path: '/genre/:user/:genre',
     element: <GenrePage />,
   },
 ]);

@@ -1,14 +1,7 @@
 import { Link } from "react-router-dom";
+import { IAnimeData } from "../../types";
 
-interface PopularProps{
-    id: number;
-    title: string;
-    score: number;
-    image: string;
-    userId: string | undefined;
-}
-
-export const Popular = ({ id, title, score, image, userId }: PopularProps) => {
+export const Popular = ({ id, title, score, image, userId }: IAnimeData) => {
     return (
         <div className="popular-anime__anime">
             <Link to={`/anime/${userId}/${id}`} className="popular-anime__img">

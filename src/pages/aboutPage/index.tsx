@@ -1,15 +1,16 @@
+/* eslint-disable react/no-unescaped-entities */
 import '../aboutPage/style5.css'
 import { Header } from '../pgcomponents/Header';
 import { Footer } from '../pgcomponents/Footer';
 import { useParams } from "react-router-dom";
 
 export const AboutPage = () => {
-    const { user } = useParams<string>();
+    const { user } = useParams();
 
     return (
         <div className="container">
             <div className="inner__container">
-                <Header userId={user}/>
+                <Header userId={user} />
 
                 <main className="about-main">
                     <div className="about-main__container">
@@ -26,16 +27,22 @@ export const AboutPage = () => {
                                 <div className="about-main-text">
                                     <div className="about-main-text__container">
                                         <p>
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                            Natus placeat neque blanditiis sint consectetur eveniet eligendi.
-                                            Ad sed magni sapiente consequatur, recusandae facere, ipsam alias quibusdam,
-                                            nesciunt ullam magnam assumenda.
+                                            Welcome to our anime platform!
 
+                                            <br />
+
+                                            At AniSup, we love anime and want to make it super easy for you to watch and enjoy it.
+                                            Our goal is to help you discover new anime, keep track of what you've watched, and find your favorites.
+
+                                            
                                         </p>
 
+                                        <p>We've made our website simple to use, with cool features to make your anime experience awesome. 
+                                            You can mark which shows you've seen, find new ones you might like, and hang out with other fans.</p>
+
                                         <p>
-                                            Ad sed magni sapiente consequatur, recusandae facere, ipsam alias quibusdam,
-                                            nesciunt ullam magnam assumenda.
+                                            Whether you're a big anime fan or just getting started, AniSup is here to make your anime adventure fun and easy. 
+                                            Come join us and dive into the exciting world of anime today!
                                         </p>
                                     </div>
                                 </div>

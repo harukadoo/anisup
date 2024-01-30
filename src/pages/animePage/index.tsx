@@ -1,14 +1,40 @@
-import { Header } from "../pgcomponents/Header"
-import { Footer } from "../pgcomponents/Footer"
-import '../animePage/style6.css'
+import { Header } from "../pgcomponents/Header";
+import { Footer } from "../pgcomponents/Footer";
+import { RelatedAnime } from "./components/RelatedAnime";
+import { LikeBtn } from "./components/LikeBtn";
+import { SaveBtn } from "./components/SaveBtn";
+import { WatchedBtn } from "./components/WatchedBtn";
+import '../animePage/style6.css';
+import * as Interfaces from '../types';
 
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+interface IRelationsData {
+    entry: {
+        mal_id: number;
+        title: string;
+        images: {
+            jpg: {
+                large_image_url: string;
+            }
+        }
+    }
+}
+
 export const AnimePage = () => {
-    const [animeData, setAnimeData] = useState<any[]>([]);
-    const { user, id } = useParams<string>();
+    const { user, id } = useParams();
+    const [animeData, setAnimeData] = useState<Interfaces.IFullAnimeData[]>([]);
+    const [animeRelations, setAnimeRelations] = useState<IRelationsData[]>([]);
+
+    const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
+    const [saves, setSaves] = useState<number>(0);
+
+    const [isLiked, setIsLiked] = useState<boolean>(false);
+    const [likes, setLikes] = useState<number>(0);
+
+    const [isWatched, setIsWatched] = useState(false);
 
     const getAnimeData = async () => {
         try {
@@ -16,11 +42,11 @@ export const AnimePage = () => {
 
             const anime = response.data.data;
 
-            const filteredData = {
-                title: anime.title_english,
+            const filteredData: Interfaces.IFullAnimeData = {
+                title: anime.title_english || anime.title,
                 jptitle: anime.title_japanese,
                 year: anime.year,
-                genres: anime.genres.map((genre: any) => {
+                genres: anime.genres.map((genre: Interfaces.IGenre) => {
                     return genre.name
                 }),
                 rating: anime.rating,
@@ -43,58 +69,41 @@ export const AnimePage = () => {
         }
     }
 
+    const getAnimeRelations = async () => {
+        try {
+            const response = await axios.get(`https://api.jikan.moe/v4/anime/${id}/recommendations`);
+            setAnimeRelations(response.data.data);
+
+        } catch (error) {
+            console.error(error);
+
+        }
+    }
+
+    useEffect(() => {
+        const checkAnimeNav = async () => {
+            try {
+                const savedAnimeResult = await axios.post(`http://localhost:3001/check-anime-nav/${user}/${id}`);
+                setIsBookmarked(savedAnimeResult.data.isSaved);
+                setIsLiked(savedAnimeResult.data.isLiked);
+                setIsWatched(savedAnimeResult.data.isWatched);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        checkAnimeNav();
+    }, [user, id]);
+
     useEffect(() => {
         getAnimeData();
-    }, []);
-
-    useEffect(() => {
-        console.log(animeData);
-
-    }, [animeData])
-
-
-
-    const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
-    const [saves, setSaves] = useState<number>(0);
-
-    useEffect(() => {
-        if (animeData.length > 0) {
-            setSaves(animeData[0].scored_by);
-        }
-    }, [animeData]);
-
-    const toggleBookmark = () => {
-        setIsBookmarked(prevState => !prevState);
-        if (isBookmarked) {
-            setSaves(prevSaves => prevSaves - 1);
-        } else {
-            setSaves(prevSaves => prevSaves + 1);
-        }
-    };
-
-
-    const [isLiked, setIsLiked] = useState<boolean>(false);
-    const [likes, setLikes] = useState<number>(0);
-
-    useEffect(() => {
-        if (animeData.length > 0) {
-            setLikes(animeData[0].favorites);
-        }
-    }, [animeData]);
-
-    const toggleLikes = () => {
-        setIsLiked(prevState => !prevState);
-        if (isLiked) {
-            setLikes(prevLikes => prevLikes - 1);
-        } else {
-            setLikes(prevLikes => prevLikes + 1);
-        }
-    };
+        getAnimeRelations();
+    }, [user, id]);
 
     return (
         <div className="container">
             <div className="inner__container">
-                <Header userId={user}/>
+                <Header userId={user} />
 
                 <main className="anime-main">
                     <div className="anime-main__container">
@@ -118,10 +127,10 @@ export const AnimePage = () => {
                                             </p>
 
                                             <p className="anime-info__genres">
-                                                Genres: 
-                                                <span>{animeData.length > 0 
-                                                ? animeData[0].genres.map((genre: string) => genre.toLowerCase()).join(', ') 
-                                                : ''}</span>
+                                                Genres:
+                                                <span>{animeData.length > 0
+                                                    ? animeData[0].genres.map((genre: string) => genre.toLowerCase()).join(', ')
+                                                    : ''}</span>
                                             </p>
 
                                             <p className="anime-info__rating">
@@ -147,26 +156,35 @@ export const AnimePage = () => {
                                                 <span>{animeData.length > 0 ? animeData[0].score : ''}</span>
                                             </p>
 
-                                            <div className="anime-info__like-btn">
-                                                <button onClick={toggleLikes}>
-                                                    <i className={isLiked ? "fa-solid fa-heart" : "fa-regular fa-heart"}></i>
-                                                </button>
-                                                <span>{animeData.length > 0 ? likes : ''}</span>
-                                            </div>
+                                            <LikeBtn
+                                                usersLikes={animeData.length > 0 ? animeData[0].favorites : 0}
+                                                animeData={animeData}
+                                                userId={user}
+                                                animeId={id}
+                                                isLiked={isLiked}
+                                                setIsLiked={setIsLiked}
+                                                likes={likes}
+                                                setLikes={setLikes}
+                                            />
 
-                                            <div className="anime-info__save-btn">
-                                                <button onClick={toggleBookmark}>
-                                                    <i className={isBookmarked ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark"}></i>
-                                                </button>
-                                                <span>{animeData.length > 0 ? saves : ''}</span>
-                                            </div>
+                                            <SaveBtn
+                                                usersSaves={animeData.length > 0 ? animeData[0].scored_by : 0}
+                                                animeData={animeData}
+                                                userId={user}
+                                                animeId={id}
+                                                isBookmarked={isBookmarked}
+                                                setIsBookmarked={setIsBookmarked}
+                                                saves={saves}
+                                                setSaves={setSaves}
+                                            />
 
-                                            {/* <div className="anime-info__unlike-btn">
-                                                <button>
-                                                    <i className="fa-solid fa-heart-crack"></i>
-                                                </button>
-                                                <span>-</span>
-                                            </div> */}
+                                            <WatchedBtn
+                                                userId={user}
+                                                animeId={id}
+                                                isWatched={isWatched}
+                                                setIsWatched={setIsWatched}
+                                            />
+
                                         </div>
                                     </div>
                                 </div>
@@ -191,6 +209,30 @@ export const AnimePage = () => {
                                         <img src={animeData.length > 0 ? animeData[0].trailerBanner : ''} alt="treiler-preview-img" />
                                     </a>
 
+                                </div>
+                            </div>
+
+
+                            <div className="anime-main-relations">
+                                <div className="anime-main-relations__container">
+                                    <div className="anime-main-relations__title">Similar anime titles:</div>
+
+                                    <div className="relations-anime">
+                                        <div className="relations-anime__container">
+                                            <div className="relations-anime__anime">
+                                                {animeRelations.map((anime: IRelationsData, index: number) => (
+                                                    <RelatedAnime 
+                                                        key={index}
+                                                        id={anime.entry.mal_id}
+                                                        title={anime.entry.title}
+                                                        image={anime.entry.images.jpg.large_image_url}
+                                                        userId={user}
+                                                    />
+                                                ))}
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 

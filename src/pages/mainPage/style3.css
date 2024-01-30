@@ -139,7 +139,7 @@
     display: flex;
     gap: 1.5vw;
     animation: slideShow1 18s infinite;
-    -webkit-animation: slideShow1 18s infinite;
+    -webkit-animation: slideShow1 15s infinite;
 }
 
 .popular-anime__anime {
@@ -154,40 +154,40 @@
 }
 
 @keyframes slideShow1 {
-    0%, 15% {
+    0%, 10% {
         transform: translateX(0);
     }
 
-    25%, 35% {
-        transform: translateX(calc(var(--index) * -9));
-        -webkit-transform: translateX(calc(var(--index) * -9));
-        -moz-transform: translateX(calc(var(--index) * -9));
-        -ms-transform: translateX(calc(var(--index) * -9));
-        -o-transform: translateX(calc(var(--index) * -9));
+    20%, 30% {
+        transform: translateX(calc(var(--index) * -10));
+        -webkit-transform: translateX(calc(var(--index) * -10));
+        -moz-transform: translateX(calc(var(--index) * -10));
+        -ms-transform: translateX(calc(var(--index) * -10));
+        -o-transform: translateX(calc(var(--index) * -10));
 }
 
-    45%, 55% {
-        transform: translateX(calc(var(--index) * -18));
-        -webkit-transform: translateX(calc(var(--index) * -18));
-        -moz-transform: translateX(calc(var(--index) * -18));
-        -ms-transform: translateX(calc(var(--index) * -18));
-        -o-transform: translateX(calc(var(--index) * -18));
+    40%, 50% {
+        transform: translateX(calc(var(--index) * -20));
+        -webkit-transform: translateX(calc(var(--index) * -20));
+        -moz-transform: translateX(calc(var(--index) * -20));
+        -ms-transform: translateX(calc(var(--index) * -20));
+        -o-transform: translateX(calc(var(--index) * -20));
 }
 
-    65%, 75% {
-        transform: translateX(calc(var(--index) * -27));
-        -webkit-transform: translateX(calc(var(--index) * -27));
-        -moz-transform: translateX(calc(var(--index) * -27));
-        -ms-transform: translateX(calc(var(--index) * -27));
-        -o-transform: translateX(calc(var(--index) * -27));
+    60%, 70% {
+        transform: translateX(calc(var(--index) * -30));
+        -webkit-transform: translateX(calc(var(--index) * -30));
+        -moz-transform: translateX(calc(var(--index) * -30));
+        -ms-transform: translateX(calc(var(--index) * -30));
+        -o-transform: translateX(calc(var(--index) * -30));
 }
 
-    85%, 90% {
-        transform: translateX(calc(var(--index) * -36));
-        -webkit-transform: translateX(calc(var(--index) * -36));
-        -moz-transform: translateX(calc(var(--index) * -36));
-        -ms-transform: translateX(calc(var(--index) * -36));
-        -o-transform: translateX(calc(var(--index) * -36));
+    80%, 90% {
+        transform: translateX(calc(var(--index) * -40));
+        -webkit-transform: translateX(calc(var(--index) * -40));
+        -moz-transform: translateX(calc(var(--index) * -40));
+        -ms-transform: translateX(calc(var(--index) * -40));
+        -o-transform: translateX(calc(var(--index) * -40));
 }
 
     100%{
@@ -209,7 +209,7 @@
     right: 0;
     bottom: 0;
     z-index: 1;
-    background: linear-gradient(180deg, rgba(207,80,239,0) 50%, rgba(24, 24, 24, 0.964) 100%);
+    background: linear-gradient(180deg, rgba(207,80,239,0) 50%, rgba(29, 29, 29, 0.948) 97%);
 }
 
 .popular-anime__img{
@@ -235,15 +235,6 @@
     right: 0;
     bottom: 0;
 }
-
-/* .popular-anime__anime:hover{
-    opacity: .8;
-    transition: all .4s ease-out;
-    -webkit-transition: all .4s ease-out;
-    -moz-transition: all .4s ease-out;
-    -ms-transition: all .4s ease-out;
-    -o-transition: all .4s ease-out;
-} */
 
 .popular-anime__img::before {
     content: "";
@@ -300,6 +291,7 @@
     font-weight: 600;
     font-size: calc(var(--index) * .7);
     z-index: 2;
+    text-align: center;
 }
 
 .popular-anime__link{
@@ -494,16 +486,17 @@
 }
 
 .genres-options__container {
+    margin-top: 4vh;
+}
+
+.genres-options__buttons{
     display: flex;
     flex-wrap: wrap;
     gap: 1vw;
 }
 
-.genres-options {
-    margin-top: 4vh;
-}
-
 .options__btn {
+    text-decoration: none;
     color: #120A14;
     background-color: #fff;
     border: 3.5px solid #FFC24C;

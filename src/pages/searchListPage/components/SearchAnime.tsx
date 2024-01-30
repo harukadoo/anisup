@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 interface SearchListProps{
     id: number;
     title: string;
-    score: number;
+    score: number | null;
     image: string;
     userId: string | undefined;
 }
