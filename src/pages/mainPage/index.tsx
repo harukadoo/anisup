@@ -1,4 +1,4 @@
-import { Anime } from "./components/Anime"
+import { NewAnime } from "./components/NewAnime"
 import '../mainPage/style3.css'
 import { Footer } from '../pgcomponents/Footer';
 import { Header } from '../pgcomponents/Header';
@@ -14,9 +14,9 @@ import axios from "axios";
 interface ResponseData {
   mal_id: number;
   title_english: string;
-  title_japanese: string;
-  year: number;
-  status: string;
+  title_japanese?: string;
+  year?: number;
+  status?: string;
   score: number | null;
   images: {
     jpg: {
@@ -27,7 +27,6 @@ interface ResponseData {
 }
 
 interface AnimeData {
-  index: number;
   id: number;
   title: string;
   jptitle: string;
@@ -78,7 +77,7 @@ export const MainPage = () => {
       const response = await axios.get('https://api.jikan.moe/v4/top/anime?type=tv');
       const filteredData = response.data.data
         .filter((anime: any) => anime.trailer.url !== null)
-        .map((anime: any) => ({
+        .map((anime: ResponseData) => ({
           id: anime.mal_id,
           title: anime.title_english,
           score: anime.score,
@@ -95,11 +94,6 @@ export const MainPage = () => {
     getNewAnime();
     getPopularAnime();
   }, []);
-
-  useEffect(() => {
-    console.log(popularAnimeData);
-
-  }, [popularAnimeData])
 
   return (
     <div className="container">
@@ -173,7 +167,7 @@ export const MainPage = () => {
 
                           <div className="newest-anime__anime">
                             {newAnimeData.slice(0, 5).map((animeItem: AnimeData, index: number) => (
-                              <Anime
+                              <NewAnime
                                 key={index}
                                 id={animeItem.id}
                                 title={animeItem.title}

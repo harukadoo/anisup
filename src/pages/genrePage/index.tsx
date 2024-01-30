@@ -4,11 +4,16 @@ import { Footer } from '../pgcomponents/Footer';
 import { Genre } from './components/Genre';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from "react";
+import * as Interfaces from '../types';
 import axios from "axios";
+
+interface IGenreList extends Interfaces.IAnimeData{
+    genres: string[];
+}
 
 export const GenrePage = () => {
     const { genre, user } = useParams();
-    const [genreList, setGenreList] = useState<any[]>([]);
+    const [genreList, setGenreList] = useState<IGenreList[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
 
     const getGenreList = async () => {
@@ -18,9 +23,9 @@ export const GenrePage = () => {
             .map((anime: any) => ({
                 id: anime.mal_id,
 
-                genres: anime.genres.map((genre: any) => {
+                genres: anime.genres.map((genre: Interfaces.IGenre) => { 
                     return genre.name
-                }).filter((name: any) =>  name.toLowerCase().includes(genre)),
+                }).filter((name: string) => genre && name.toLowerCase().includes(genre)),
 
                 title: anime.title_english || anime.title,
                 score: anime.score,
@@ -63,7 +68,7 @@ export const GenrePage = () => {
                             <div className="genre-main-content__container">
                                 <div className="genre-anime-list">
                                     <div className="genre-anime-list__container">
-                                        {genreList.map((anime: any, index: number) => (
+                                        {genreList.map((anime: Interfaces.IAnimeData, index: number) => (
                                             <Genre 
                                             key={index}
                                             id={anime.id}
@@ -76,7 +81,7 @@ export const GenrePage = () => {
                                     </div>
                                 </div>
 
-                                <button className="genre-main__btn" onClick={() => setCurrentPage(prev => prev += 1)}>Show more...</button>
+                                <button className="genre-main__btn" onClick={() => setCurrentPage(prev => prev += 1)}>show more...</button>
                             </div>
                         </div>
 

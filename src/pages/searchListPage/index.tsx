@@ -27,10 +27,6 @@ export const SearchList = () => {
     }
   }, [titles]);
 
-  useEffect(() => {
-    console.log(searchValue);
-  }, [searchValue]);
-
   return (
     <div className="search-list-container">
       <div className="search-list-inner__container">
@@ -45,7 +41,7 @@ export const SearchList = () => {
                   <SearchAnime
                     key={index}
                     id={anime.mal_id}
-                    title={anime.title_english}
+                    title={anime.title_english || anime.title}
                     score={anime.score}
                     image={anime.images.jpg.large_image_url}
                     userId={user}

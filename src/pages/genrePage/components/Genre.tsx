@@ -1,14 +1,7 @@
 import { Link } from "react-router-dom";
+import { IAnimeData } from "../../types";
 
-interface GenreProps {
-    id: number;
-    title: string;
-    score: number;
-    image: string;
-    userId: string | undefined;
-}
-
-export const Genre = ({ id, title, score, image, userId }: GenreProps) => {
+export const Genre = ({ id, title, score, image, userId }: IAnimeData) => {
     return (
         <div className="genre-anime__anime">
             <Link to={`/anime/${userId}/${id}`} className="genre-anime__image">

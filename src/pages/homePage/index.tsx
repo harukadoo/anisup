@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import '../homePage/style9.css';
 import { Header } from '../pgcomponents/Header';
-import { Footer } from '../pgcomponents/Footer';
+import { SavedAnime } from './components/SavedAnime';
+import { FavoriteAnime } from './components/FavoriteAnime';
+import { WatchedAnime } from './components/WatchedAnime';
 import { useParams } from "react-router-dom";
+import { IAnimeData } from '../types';
 import axios from 'axios';
 
 interface UserData {
@@ -14,24 +17,28 @@ export const HomePage = () => {
     const { user } = useParams();
     const [userData, setUserData] = useState<UserData | null>(null);
 
+    const [savedAnime, setSavedAnime] = useState<string[]>([]);
+    const [savedAnimeDetails, setSavedAnimeDetails] = useState<IAnimeData[]>([]);
+
+    const [favAnime, setFavAnime] = useState<string[]>([]);
+    const [favAnimeDetails, setFavAnimeDetails] = useState<IAnimeData[]>([]);
+
+    const [watchedAnime, setWatchedAnime] = useState<string[]>([]);
+    const [watchedAnimeDetails, setWatchedAnimeDetails] = useState<IAnimeData[]>([]);
+
     useEffect(() => {
         const getUserData = async () => {
-            try{
+            try {
                 const response = await axios.get(`http://localhost:3001/user/${user}`);
                 setUserData(response.data)
             } catch (error) {
-                console.error('Помилка при запиті до API:', error);
+                console.error('Помилка при запиті до серверу:', error);
             }
         }
 
         getUserData()
     }, [user])
 
-    useEffect(() => {
-        console.log(userData);
-        
-    }, [userData])
-    
     return (
         <div className="container">
             <div className="inner__container">
@@ -62,40 +69,33 @@ export const HomePage = () => {
 
                         <div className="home-user-actions">
                             <div className="home-user-actions__container">
+                                <SavedAnime
+                                    user={user}
+                                    savedAnime={savedAnime}
+                                    setSavedAnime={setSavedAnime}
+                                    savedAnimeDetails={savedAnimeDetails}
+                                    setSavedAnimeDetails={setSavedAnimeDetails}
+                                />
 
-                                <div className="user-actions-saved">
-                                    <div className="user-actions-saved__container">
-                                        <div className="actions-saved__title">
-                                            <i className="fa-solid fa-bookmark"></i>
-                                            <div className="actions-saved__title-title">Saved (0)</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <FavoriteAnime
+                                    user={user}
+                                    favAnime={favAnime}
+                                    setFavAnime={setFavAnime}
+                                    favAnimeDetails={favAnimeDetails}
+                                    setFavAnimeDetails={setFavAnimeDetails}
+                                />
 
-                                <div className="user-actions-liked">
-                                    <div className="user-actions-liked__container">
-                                        <div className="actions-liked__title">
-                                            <i className="fa-solid fa-heart"></i>
-                                            <div className="actions-liked__title-title">Favorite (0)</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="user-actions-watched">
-                                    <div className="user-actions-watched__container">
-                                        <div className="actions-watched__title">
-                                            <i className="fa-solid fa-check-double"></i>
-                                            <div className="actions-watched__title-title">Watched (0)</div>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                <WatchedAnime
+                                    user={user}
+                                    watchedAnime={watchedAnime}
+                                    setWatchedAnime={setWatchedAnime}
+                                    watchedAnimeDetails={watchedAnimeDetails}
+                                    setWatchedAnimeDetails={setWatchedAnimeDetails}
+                                />
                             </div>
                         </div>
                     </div>
                 </main>
-
-                {/* <Footer /> */}
             </div>
         </div>
     )

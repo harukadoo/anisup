@@ -11,29 +11,29 @@ export const SignUpPage = () => {
   const [userExists, setUserExists] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    axios.post('http://localhost:3001/sign-up-check', { email })
-      .then(result => {
-        if (result.data.exists) {
-          setUserExists(true);
+    try {
+      const checkUser = await axios.post('http://localhost:3001/sign-up-check', { email });
+
+      if (checkUser.data.exists) {
+        setUserExists(true);
+
+      } else {
+        if (name === '' || email === '' || password === '') {
+          return;
           
         } else {
-          if (name === '' || email === '' || password === '') {
-            return
-          } else {
-            axios.post('http://localhost:3001/', { name, email, password })
-              .then(result => {
-                const userId = result.data._id; 
-                console.log(result);
-                navigate(`/main/${userId}`);
-              })
-              .catch(error => console.log(error));
-          }
+          const createUser = await axios.post('http://localhost:3001/', { name, email, password, saves: [], favorite: [], watched: []});
+          const userId = createUser.data._id;
+          console.log(createUser);
+          navigate(`/main/${userId}`);
         }
-      })
-      .catch(error => console.log(error));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

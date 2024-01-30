@@ -149,8 +149,8 @@
     color: #FF9090;
 }
 
-.anime-info__unlike-btn i, .anime-info__unlike-btn span{
-    color: #FF9090;
+.anime-info__watched-btn i {
+    color: #c9ff90;
 }
 
 .anime-main-about__title{
@@ -295,6 +295,54 @@
     height: 100%;
     display: flex;
     gap: 1.5vw;
+    animation: animeSlideShow 18s infinite;
+    -webkit-animation: animeSlideShow 18s infinite;
+}
+
+@keyframes animeSlideShow {
+    0%, 10% {
+        transform: translateX(0);
+    }
+
+    20%, 30% {
+        transform: translateX(calc(var(--index) * -6));
+        -webkit-transform: translateX(calc(var(--index) * -6));
+        -moz-transform: translateX(calc(var(--index) * -6));
+        -ms-transform: translateX(calc(var(--index) * -6));
+        -o-transform: translateX(calc(var(--index) * -6));
+}
+
+    40%, 50% {
+        transform: translateX(calc(var(--index) * -12));
+        -webkit-transform: translateX(calc(var(--index) * -12));
+        -moz-transform: translateX(calc(var(--index) * -12));
+        -ms-transform: translateX(calc(var(--index) * -12));
+        -o-transform: translateX(calc(var(--index) * -12));
+}
+
+    60%, 70% {
+        transform: translateX(calc(var(--index) * -18));
+        -webkit-transform: translateX(calc(var(--index) * -18));
+        -moz-transform: translateX(calc(var(--index) * -18));
+        -ms-transform: translateX(calc(var(--index) * -18));
+        -o-transform: translateX(calc(var(--index) * -18));
+}
+
+    80%, 90% {
+        transform: translateX(calc(var(--index) * -24));
+        -webkit-transform: translateX(calc(var(--index) * -24));
+        -moz-transform: translateX(calc(var(--index) * -24));
+        -ms-transform: translateX(calc(var(--index) * -24));
+        -o-transform: translateX(calc(var(--index) * -24));
+}
+
+    100%{
+        transform: translateX(0);
+        -webkit-transform: translateX(0);
+        -moz-transform: translateX(0);
+        -ms-transform: translateX(0);
+        -o-transform: translateX(0);
+}
 }
 
 .relations-anime__anime-content {

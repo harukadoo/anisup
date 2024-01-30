@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from "axios";
 
 interface AnimeProps {
     key: number;
@@ -13,11 +14,35 @@ interface AnimeProps {
     userId: string | undefined;
 }
 
-export const Anime = ({ id, title, jptitle, year, status, score, image, userId }: AnimeProps) => {
+export const NewAnime = ({ id, title, jptitle, year, status, score, image, userId }: AnimeProps) => {
     const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
 
-    const toggleBookmark = () => {
-        setIsBookmarked(prevState => !prevState);
+    useEffect(() => {
+        const checkAnimeSaves = async () => {
+            try {
+                const savedAnimeResult = await axios.post(`http://localhost:3001/check-anime-nav/${userId}/${id}`);
+                setIsBookmarked(savedAnimeResult.data.isSaved);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        checkAnimeSaves();
+    }, [userId]);
+
+    const toggleBookmark = async () => {
+        try {
+            const result = await axios.post(`http://localhost:3001/save-anime/${userId}/${id}`);
+
+            if (result.data.success) {
+                setIsBookmarked((prevState: any) => !prevState);
+            } else {
+                console.error('Error saving anime:', result.data.error);
+            }
+        } catch (error) {
+            console.error('Error saving anime:', error);
+        }
+
     };
 
     const displayedScore = score !== null ? score : "not rated";

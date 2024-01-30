@@ -1,14 +1,10 @@
 .header {
     width: 100%;
     position: fixed;
-    transition: background-color 0.3s ease; 
-    z-index: 100; 
-   
-  }
-  
-  .header.scrolled {
-    background-color: #2a322b81;
-  }
+    transition: background-color 0.3s ease;
+    z-index: 100;
+
+}
 
 .header__container {
     width: 100%;

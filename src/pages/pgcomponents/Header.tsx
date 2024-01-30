@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './style4.css'
 
 type HeaderProps = {
@@ -18,26 +18,8 @@ export const Header = ({ userId }: HeaderProps) => {
     setSearchVisible(false);
   };
 
-  const [isScrolled, setIsScrolled] = useState<boolean>(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const position = window.scrollY;
-      if (position > 0) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [isScrolled]);
   return (
-    <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
+    <header className="header">
       <div className="header__container">
         <div className="header-logo">
           <div className="header-logo__container">

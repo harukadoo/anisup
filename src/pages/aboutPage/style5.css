@@ -81,8 +81,8 @@
 
 .about-main-text__container p{
     text-align: center;
-    font-size: calc(var(--index) * .9);
-    color: #ffffffee;
+    font-size: calc(var(--index) * .8);
+    color: #ffffffdf;
     font-weight: 500;
 }
 
@@ -96,6 +96,7 @@
 .support-section__title{
     font-weight: 600;
     font-size: calc(var(--index) * 1.2);
+    color: #ffffffdf;
 }
 
 .support-section__nav{
@@ -105,4 +106,5 @@
 
 .support-section__nav a{
     font-size: calc(var(--index) * 1.5);
+    color: #ffffffdf;
 }

@@ -8,7 +8,6 @@ import axios from "axios";
 
 export const TopAnimePage = () => {
     const { user } = useParams();
-
     const [topAnime, setTopAnime] = useState<any[]>([]);
     const [page, setPage] = useState<number>(1)
 
@@ -16,7 +15,6 @@ export const TopAnimePage = () => {
         if (page < 4) {
           setPage((prevPage) => {
             const nextPage = prevPage + 1;
-            // Выполняйте запрос к API напрямую, без использования useNavigate
             axios.get(`https://api.jikan.moe/v4/top/anime?type=tv&movie&page=${nextPage}`)
               .then(response => setTopAnime(prevAnime => [...prevAnime, ...response.data.data]))
               .catch(error => console.error('Помилка при запиті до API:', error));
@@ -38,12 +36,7 @@ export const TopAnimePage = () => {
     useEffect(() => {
         getTopAnime()
     }, []);
-
-    useEffect(() => {
-        console.log(topAnime);
-
-    }, [topAnime])
-
+    
     return (
         <div className="container">
             <div className="inner__container">

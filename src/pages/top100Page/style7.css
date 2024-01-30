@@ -42,15 +42,15 @@
 .top-anime-main-title__container span{
     background-color: #FFC24C;
     width: 100%;
-    height: calc(var(--index) * .2);
+    height: calc(var(--index) * .1);
     display: block;
 }
 
 .top-anime-main-title__title{
-    font-size: calc(var(--index) * 2.5);
+    font-size: calc(var(--index) * 2);
     font-weight: 700;
     color: #FFC24C;
-    margin-top: calc(var(--index) * -1.85);
+    margin-top: calc(var(--index) * -1.5);
     padding: 0 calc(var(--index) * 1.2);
     background-color: #120A14;
 }
