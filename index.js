@@ -57,8 +57,6 @@ app.post('/', (request, response) => {
 })
 
 
-
-
 app.get('/user/:id', (request, response) => {
     const ObjectId = mongoose.Types.ObjectId;
     const userId = request.params.id;
@@ -95,14 +93,12 @@ app.get('/get-saved-anime/:userId', async (request, response) => {
     try {
         const userId = request.params.userId;
 
-        // Находим пользователя по ID
         const user = await UsersModel.findById(userId);
 
         if (!user) {
             return response.status(404).json({ success: false, error: 'User not found' });
         }
 
-        // Получаем сохраненные аниме пользователя
         const savedAnimeIds = user.saves || [];
 
         response.json({ success: true, savedAnimeIds });
@@ -155,7 +151,6 @@ app.get('/get-watched-anime/:userId', async (request, response) => {
 app.post('/save-anime/:userId/:animeId', async (request, response) => {
     try {
         const { userId, animeId } = request.params;
-        // console.log('Received request to save anime. User ID:', userId, 'Anime ID:', animeId);
 
         const user = await UsersModel.findById(userId);
 
@@ -188,7 +183,6 @@ app.post('/save-anime/:userId/:animeId', async (request, response) => {
 app.post('/like-anime/:userId/:animeId', async (request, response) => {
     try {
         const { userId, animeId } = request.params;
-        // console.log('Received request to like anime. User ID:', userId, 'Anime ID:', animeId);
 
         const user = await UsersModel.findById(userId);
 
@@ -221,7 +215,6 @@ app.post('/like-anime/:userId/:animeId', async (request, response) => {
 app.post('/watched-anime/:userId/:animeId', async (request, response) => {
     try {
         const { userId, animeId } = request.params;
-        // console.log('Received request to watch anime. User ID:', userId, 'Anime ID:', animeId);
 
         const user = await UsersModel.findById(userId);
 
