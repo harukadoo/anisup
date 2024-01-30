@@ -1,20 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { IExtendedAnimeData } from '../../types';
 import axios from "axios";
 
-interface AnimeProps {
-    key: number;
-    id: number;
-    title: string;
-    jptitle: string;
-    year: number;
-    status: string;
-    score: number;
-    image: string;
-    userId: string | undefined;
-}
-
-export const NewAnime = ({ id, title, jptitle, year, status, score, image, userId }: AnimeProps) => {
+export const NewAnime = ({ id, title, jptitle, year, status, score, image, userId }: IExtendedAnimeData) => {
     const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
 
     useEffect(() => {
@@ -35,7 +24,7 @@ export const NewAnime = ({ id, title, jptitle, year, status, score, image, userI
             const result = await axios.post(`http://localhost:3001/save-anime/${userId}/${id}`);
 
             if (result.data.success) {
-                setIsBookmarked((prevState: any) => !prevState);
+                setIsBookmarked((prevState: boolean) => !prevState);
             } else {
                 console.error('Error saving anime:', result.data.error);
             }

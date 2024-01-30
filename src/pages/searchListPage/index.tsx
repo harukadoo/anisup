@@ -4,11 +4,12 @@ import '../searchListPage/style8.css';
 import { SearchAnime } from "./components/SearchAnime";
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from "react";
+import * as Interfaces from "../types";
 import axios from "axios";
 
 export const SearchList = () => {
   const { titles, user } = useParams();
-  const [searchValue, setSearchValue] = useState<any>([]);
+  const [searchValue, setSearchValue] = useState<Interfaces.IAnimeData[]>([]);
 
   useEffect(() => {
     if (titles !== undefined) {
@@ -17,7 +18,13 @@ export const SearchList = () => {
       const getSearchValue = async () => {
         try {
           const response = await axios.get(`https://api.jikan.moe/v4/anime?q=${decodedSearch}`);
-          setSearchValue(response.data.data);
+          const filteredData = response.data.data.map((anime: Interfaces.IResponseData) => ({
+            id: anime.mal_id,
+            title: anime.title_english,
+            score: anime.score,
+            image: anime.images.jpg.large_image_url,
+          }));
+          setSearchValue(filteredData);
         } catch (error) {
           console.log(error);
         }
@@ -37,17 +44,21 @@ export const SearchList = () => {
             <div className="search-anime-list">
               <div className="search-anime-list__container">
 
-                {searchValue.map((anime: any, index: number) => (
+                {searchValue.map((anime: Interfaces.IAnimeData, index: number) => (
                   <SearchAnime
                     key={index}
-                    id={anime.mal_id}
-                    title={anime.title_english || anime.title}
-                    score={anime.score}
-                    image={anime.images.jpg.large_image_url}
                     userId={user}
+                    id={anime.id}
+                    title={anime.title}
+                    score={anime.score}
+                    image={anime.image}
 
                   />
-                )).sort((a: any, b: any) => b.props.score - a.props.score)}
+                )).sort((a: React.ReactElement<Interfaces.IAnimeData>, b: React.ReactElement<Interfaces.IAnimeData>) => {
+                  const scoreA = a.props.score || 0;
+                  const scoreB = b.props.score || 0;
+                  return scoreB - scoreA;
+                })}
 
               </div>
             </div>

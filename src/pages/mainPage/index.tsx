@@ -8,34 +8,21 @@ import { GenreButton } from "./components/GenreButton";
 
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import * as Interfaces from "../types";
 import axios from "axios";
 
+// interface AnimeData {
+//   id: number;
+//   title: string;
+//   jptitle: string;
+//   year: number;
+//   status: string;
+//   score: number;
+//   image: string;
+//   userId: string | undefined;
+// }
 
-interface ResponseData {
-  mal_id: number;
-  title_english: string;
-  title_japanese?: string;
-  year?: number;
-  status?: string;
-  score: number | null;
-  images: {
-    jpg: {
-      large_image_url: string;
-    };
-  };
-
-}
-
-interface AnimeData {
-  id: number;
-  title: string;
-  jptitle: string;
-  year: number;
-  status: string;
-  score: number;
-  image: string;
-  userId: string | undefined;
-}
+type TRecommendedAnime = Omit<Interfaces.IAnimeData, 'score'>
 
 const recommendedAnime = [
   { id: 52991, title: 'Frieren: Beyond Journey\' s End', image: "https://cdn.myanimelist.net/images/anime/1015/138006l.jpg" },
@@ -46,8 +33,8 @@ const recommendedAnime = [
 
 export const MainPage = () => {
   const [inputValue, setInputValue] = useState<string>('');
-  const [newAnimeData, setNewAnimeData] = useState<AnimeData[]>([]);
-  const [popularAnimeData, setPopularAnimeData] = useState<any>([]);
+  const [newAnimeData, setNewAnimeData] = useState<Interfaces.IExtendedAnimeData[]>([]);
+  const [popularAnimeData, setPopularAnimeData] = useState<Interfaces.IAnimeData[]>([]);
   const { user } = useParams();
 
   const getNewAnime = async () => {
@@ -55,8 +42,8 @@ export const MainPage = () => {
     try {
       const response = await axios.get('https://api.jikan.moe/v4/seasons/2024/winter');
       const filteredData = response.data.data
-        .filter((anime: ResponseData) => anime.score !== null)
-        .map((anime: ResponseData) => ({
+        .filter((anime: Interfaces.IResponseData) => anime.score !== null)
+        .map((anime: Interfaces.IResponseData) => ({
           id: anime.mal_id,
           title: anime.title_english,
           jptitle: anime.title_japanese,
@@ -76,8 +63,8 @@ export const MainPage = () => {
     try {
       const response = await axios.get('https://api.jikan.moe/v4/top/anime?type=tv');
       const filteredData = response.data.data
-        .filter((anime: any) => anime.trailer.url !== null)
-        .map((anime: ResponseData) => ({
+        .filter((anime: Interfaces.IResponseData) => anime.trailer && anime.trailer.url !== null)
+        .map((anime: Interfaces.IResponseData) => ({
           id: anime.mal_id,
           title: anime.title_english,
           score: anime.score,
@@ -137,7 +124,7 @@ export const MainPage = () => {
                 <div className="main-content__popular-anime">
                   <div className="popular-anime__container">
                     <div className="popular-anime__anime-titles">
-                      {popularAnimeData.slice(0, 11).map((anime: any, index: number) => (
+                      {popularAnimeData.slice(0, 11).map((anime: Interfaces.IAnimeData, index: number) => (
                         <Popular
                           key={index}
                           id={anime.id}
@@ -166,7 +153,7 @@ export const MainPage = () => {
                           </div>
 
                           <div className="newest-anime__anime">
-                            {newAnimeData.slice(0, 5).map((animeItem: AnimeData, index: number) => (
+                            {newAnimeData.slice(0, 5).map((animeItem: Interfaces.IExtendedAnimeData, index: number) => (
                               <NewAnime
                                 key={index}
                                 id={animeItem.id}
@@ -210,7 +197,7 @@ export const MainPage = () => {
 
                         <div className="recommendations">
                           <div className="recommendations__container">
-                            {recommendedAnime.map((anime: any, index: number) => (
+                            {recommendedAnime.map((anime: TRecommendedAnime, index: number) => (
                               <Recommended
                                 key={index}
                                 id={anime.id}

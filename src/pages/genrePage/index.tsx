@@ -18,22 +18,29 @@ export const GenrePage = () => {
 
     const getGenreList = async () => {
         try {
+            if (genreList.length >= 200) {
+                return; 
+            }
+
             const response = await axios.get(`https://api.jikan.moe/v4/top/anime?page=${currentPage}`);
             const filteredData = response.data.data
-            .map((anime: any) => ({
+            .map((anime: Interfaces.IResponseData) => ({
                 id: anime.mal_id,
-
-                genres: anime.genres.map((genre: Interfaces.IGenre) => { 
+                genres: anime.genres ? anime.genres.map((genre: Interfaces.IGenre) => { 
                     return genre.name
-                }).filter((name: string) => genre && name.toLowerCase().includes(genre)),
+                }).filter((name: string) => genre && name.toLowerCase().includes(genre)) : [],
 
                 title: anime.title_english || anime.title,
                 score: anime.score,
                 image: anime.images.jpg.large_image_url,
-              }))
-              .filter((data: any) => data.genres.length > 0)
+            }))
+            .filter((data: any) => data.genres.length > 0)
 
-              setGenreList((prevList) => [...prevList, ...filteredData]);
+            setGenreList((prevList) => [...prevList, ...filteredData]);
+
+            if (filteredData.length < 25 && genreList.length + filteredData.length < 200) {
+                setTimeout(() => setCurrentPage(prevPage => prevPage + 1), 1000); 
+            }
 
         } catch (error) { 
             console.error('Помилка при запиті до API:', error);
@@ -80,12 +87,8 @@ export const GenrePage = () => {
                                         ))}
                                     </div>
                                 </div>
-
-                                <button className="genre-main__btn" onClick={() => setCurrentPage(prev => prev += 1)}>show more...</button>
                             </div>
                         </div>
-
-                        
                     </div>
                 </main>
 

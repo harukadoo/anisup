@@ -1,11 +1,9 @@
 import { Link } from "react-router-dom";
 
+const genreButtons: string[] = ['action', 'drama', 'fantasy', 'suspense',
+  'romance', 'adventure', 'comedy', 'school', 'sports', 'psychological', 'supernatural', 'music'];
 
-const genreButtons = ['action', 'drama', 'fantasy', 'psychological',
-  'thriller', 'romance', 'adventure', 'comedy',
-  'school', 'sports', 'music', 'supernatural', 'suspense'];
-
-export const GenreButton = ({ userId }: any) => {
+export const GenreButton = ({ userId }: { userId: string | undefined }) => {
   return (
     <div className="genres-options__buttons">
       {genreButtons.map((button: string, index: number) => (
