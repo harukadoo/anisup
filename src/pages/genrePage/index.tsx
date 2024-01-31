@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import * as Interfaces from '../types';
 import axios from "axios";
 
-interface IGenreList extends Interfaces.IAnimeData{
+interface IGenreList extends Interfaces.IAnimeData {
     genres: string[];
 }
 
@@ -19,30 +19,30 @@ export const GenrePage = () => {
     const getGenreList = async () => {
         try {
             if (genreList.length >= 200) {
-                return; 
+                return;
             }
 
             const response = await axios.get(`https://api.jikan.moe/v4/top/anime?page=${currentPage}`);
             const filteredData = response.data.data
-            .map((anime: Interfaces.IResponseData) => ({
-                id: anime.mal_id,
-                genres: anime.genres ? anime.genres.map((genre: Interfaces.IGenre) => { 
-                    return genre.name
-                }).filter((name: string) => genre && name.toLowerCase().includes(genre)) : [],
+                .map((anime: Interfaces.IResponseData) => ({
+                    id: anime.mal_id,
+                    genres: anime.genres ? anime.genres.map((genre: Interfaces.IGenre) => {
+                        return genre.name
+                    }).filter((name: string) => genre && name.toLowerCase().includes(genre)) : [],
 
-                title: anime.title_english || anime.title,
-                score: anime.score,
-                image: anime.images.jpg.large_image_url,
-            }))
-            .filter((data: any) => data.genres.length > 0)
+                    title: anime.title_english || anime.title,
+                    score: anime.score,
+                    image: anime.images.jpg.large_image_url,
+                }))
+                .filter((data: any) => data.genres.length > 0)
 
             setGenreList((prevList) => [...prevList, ...filteredData]);
 
             if (filteredData.length < 25 && genreList.length + filteredData.length < 200) {
-                setTimeout(() => setCurrentPage(prevPage => prevPage + 1), 1000); 
+                setTimeout(() => setCurrentPage(prevPage => prevPage + 1), 1000);
             }
 
-        } catch (error) { 
+        } catch (error) {
             console.error('Помилка при запиті до API:', error);
         }
     }
@@ -51,15 +51,10 @@ export const GenrePage = () => {
         getGenreList()
     }, [currentPage])
 
-    useEffect(() => {
-        console.log(genreList);
-        
-    }, [genreList])
-
     return (
-        <div className="container">
-            <div className="inner__container">
-                <Header userId={user}/>
+        <div className="genre-container">
+            <div className="genre-inner__container">
+                <Header userId={user} />
 
                 <main className="genre-main">
                     <div className="genre-main__container">
@@ -76,13 +71,13 @@ export const GenrePage = () => {
                                 <div className="genre-anime-list">
                                     <div className="genre-anime-list__container">
                                         {genreList.map((anime: Interfaces.IAnimeData, index: number) => (
-                                            <Genre 
-                                            key={index}
-                                            id={anime.id}
-                                            title={anime.title}
-                                            score={anime.score}
-                                            image={anime.image}
-                                            userId={user}
+                                            <Genre
+                                                key={index}
+                                                id={anime.id}
+                                                title={anime.title}
+                                                score={anime.score}
+                                                image={anime.image}
+                                                userId={user}
                                             />
                                         ))}
                                     </div>
@@ -91,6 +86,10 @@ export const GenrePage = () => {
                         </div>
                     </div>
                 </main>
+
+                <div className="genre-loading-caption" style={{ display: genreList.length === 0 ? 'block' : 'none' }}>
+                    <p>Loading...</p>
+                </div>
 
                 <Footer />
             </div>

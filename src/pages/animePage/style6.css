@@ -37,16 +37,15 @@
 .anime-main__content{
     width: 100%;
     background-color: #151615;
-    padding: 15vh 6vw 6vh 6vw;
+    padding: calc(var(--index) * 4.7) 6vw calc(var(--index) * 1.8) 6vw;
     display: flex;
     flex-direction: column;
-     gap: 8vh;
+    gap: calc(var(--index) * 2.6);
 }
 
 .anime-info__container{
     display: flex;
     height: calc(var(--index) * 22);
-    /* gap: 2vw; */
 }
 
 .anime-info__image{
@@ -95,9 +94,9 @@
     font-size: calc(var(--index) * .85);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: calc(var(--index) * .45);
     background-color: #2a322b57;
-    padding: 15px 2vw;
+    padding: calc(var(--index) * .65) 2vw;
 }
 
 .anime-info__full-info span{
@@ -110,7 +109,7 @@
 
 .anime-info__genres span{
     color: #FFC24C;
-    margin-left: 10px;
+    margin-left: calc(var(--index) * .45);
 }
 
 .anime-info__nav{
@@ -118,8 +117,8 @@
     align-items: center;
     gap: 4vw;
     padding-left: 2vw;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: calc(var(--index) * .45);
+    padding-bottom: calc(var(--index) * .45);
     background-color: #2a322b57;
 }
 
@@ -133,7 +132,7 @@
 }
 
 .anime-info__nav span{
-    margin-left: 8px;
+    margin-left: calc(var(--index) * .38);
 }
 
 .anime-info__nav p, .anime-info__nav span{
@@ -159,7 +158,7 @@
 }
 
 .anime-main-about__description{
-    margin-top: 3vh;
+    margin-top: calc(var(--index) * .9);
     line-height: 1.4;
     font-size: calc(var(--index) * .8);
     background-color:  #2a322b57;
@@ -175,7 +174,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 6vh;
+    margin-top: calc(var(--index) * 1.9);
     
 }
 
@@ -243,7 +242,7 @@
 
 
 .anime-main-dub__container{
-    margin-top: 4vh;
+    margin-top: calc(var(--index) * 1.3);
 }
 
 .anime-main-dub__container span{
@@ -255,7 +254,7 @@
     text-decoration: none;
     font-style: italic;
     font-size: calc(var(--index) * .8);
-    margin-left: 8px;
+    margin-left: calc(var(--index) * .37);
 }
 
 .dub__link:hover{

@@ -33,7 +33,7 @@
 
 .top-anime-main-title__container{
     width: 100%;
-    padding: 17vh 0 8vh;
+    padding: calc(var(--index) * 5.1) 0 calc(var(--index) * 2.2);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -65,7 +65,7 @@
     flex-direction: column;
     align-items: center;
     gap: calc(var(--index) * 3);
-    padding: 0 6vw 14vh 6vw;
+    padding: 0 6vw calc(var(--index) * 3.8) 6vw;
 }
 
 .top-anime-main__btn{
@@ -74,7 +74,6 @@
     border: none;
     font-size: calc(var(--index) * .9);
     font-weight: 500;
-    /* opacity: .8; */
     cursor: pointer;
     color: #ffe1a5;
 

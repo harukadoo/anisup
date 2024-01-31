@@ -64,12 +64,12 @@
     font-weight: 800;
     text-shadow: 0 0 5px #ff50d9;
     text-align: center;
-    padding: 0 10vh;
+    padding: 0 calc(var(--index) * 3.2);
     line-height: .98;
   }
   
   .form__caption{
-    margin: 6vh 0 3vh 0;
+    margin: calc(var(--index) * 1.8) 0 calc(var(--index) * 1) 0;
     width: 54%;
     text-align: start;
     font-size: calc(var(--index) * .7);
@@ -79,7 +79,7 @@
   .sign-in__form{
     display: flex;
     flex-direction: column;
-    gap: 3.5vh;
+    gap: calc(var(--index) * 1.1);
     width: 54%;
   }
   
@@ -89,7 +89,7 @@
     border: 2.5px solid #fff;
     background: none;
     color: #fff;
-    padding: 12px 20px;
+    padding: calc(var(--index) * .55) calc(var(--index) * .9);
     font-weight: 500;
   }
   
@@ -97,11 +97,11 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-top: 2vh;
+    margin-top: calc(var(--index) * .8);
   }
   
   .sign-in__button{
-    padding: 7px 14px;
+    padding: calc(var(--index) * .3) calc(var(--index) * .6);
     color: #fff;
     font-size: calc(var(--index) * .8);
     font-weight: 600;
