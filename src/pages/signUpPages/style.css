@@ -66,7 +66,7 @@
   }
   
   .signup-form__caption{
-    margin: 5vh 10vh 4vh 10vh;
+    margin: calc(var(--index) * 1.6) calc(var(--index) * 3.2) calc(var(--index) * 1.4) calc(var(--index) * 3.2);
     text-align: center;
     font-size: calc(var(--index) * .7);
     font-weight: 500;
@@ -76,7 +76,7 @@
   .sign-up__form{
     display: flex;
     flex-direction: column;
-    gap: 3.5vh;
+    gap: calc(var(--index) * 1.1);
     width: 54%;
   }
   
@@ -86,14 +86,14 @@
     border: 2.5px solid #fff;
     background: none;
     color: #fff;
-    padding: 12px 20px;
+    padding: calc(var(--index) * .55) calc(var(--index) * .9);
     font-weight: 500;
   }
 
   .sign-up-form__error {
     display: none;
     color: red;
-    margin-bottom: -2vh;
+    margin-bottom: calc(var(--index) * -.8);
     font-size: calc(var(--index) * .8);
   }
   
@@ -101,11 +101,11 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-top: 2vh;
+    margin-top: calc(var(--index) * .8);
   }
   
   .sign-up__button{
-    padding: 7px 14px;
+    padding: calc(var(--index) * .3) calc(var(--index) * .6);
     color: #fff;
     font-size: calc(var(--index) * .8);
     font-weight: 600;

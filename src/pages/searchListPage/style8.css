@@ -31,7 +31,7 @@
 .search-main__container{
     width: 100%;
     background-color: #151615;
-    padding: 15vh 6vw 8vh 6vw;
+    padding: calc(var(--index) * 4.8) 6vw calc(var(--index) * 2.6) 6vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -45,7 +45,6 @@
 .search-anime-list__container{
     width: 100%;
     display: flex;
-    /* justify-content: space-between; */
     justify-content: center;
     gap: calc(var(--index) * 2.1);
     flex-wrap: wrap;

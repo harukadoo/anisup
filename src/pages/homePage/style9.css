@@ -93,10 +93,10 @@
 }
 
 .home-user-actions__container{
-    padding: 10vh 6vw 14vh 6vw;
+    padding: calc(var(--index) * 3.2) 6vw calc(var(--index) * 4.2) 6vw;
     display: flex;
     flex-direction: column;
-    gap: 5vh;
+    gap: calc(var(--index) * 1.6);
 }
 
 .actions-saved__title, .actions-liked__title, .actions-watched__title{
